@@ -1,0 +1,17 @@
+# Loop Order
+We arrived at the same conclusion --- that for a naive implementation, an order of `jki` from outermost to innermost loops yielded the best performance. For completeness, it might be useful to include a graph comparing performance for varying loop order, of which there are only six permutations.
+
+In addition, our impression from testing thus far is that the small kernel size of the blocked implementation reduces the contribution of array stride optimizations. In these cases, there are negligible speed gains to be had by directly altering loop order. Instead, choosing a loop order that facilitates copying and caching (we had luck with `ijk`, ironically) yielded the best performance.
+
+# Blocking
+The use of a rectangular block is interesting, and the justification appears sound. You do not mention what block size you are using when varying rect size, and vice versa. It may be worthwhile to vary both rect size and block size simultaneously and plot the results on a heat map to verify if the best combination of values is indeed 384 and 32 respectively.
+
+# Complier Optimization and Alignments
+The following flags:
+
+- -O3
+- -ipo
+- -no-prec-div
+- -funroll-loops
+
+are all provided by the `-fast` flag, amongst other things. In addition, while you tried aligning your data structures to 16 bytes, did you get the chance to explore alignments of 32 or 64 bytes? From our own benchmarks, 64 bytes yielded slightly better performance at larger matrix sizes with no discernible effect on MKL's performance.
