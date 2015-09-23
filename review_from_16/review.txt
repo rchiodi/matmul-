@@ -1,3 +1,11 @@
+# Nice Stuff
+Rectangular blocking looks very promising. An interesting observation is that in the [notes] for CS 6210, Prof. Bindel claims that "roughly square blocks are roughly optimal", whereas you have a somewhat different conclusion.
+
+# Soon-to-be-nice Stuff
+There's nothing much to say - as far as we've seen, you guys have some pretty serious firepower in there. Perhaps given copy optimization a try to see if it's possible to push past 10GFlop/s consistently?
+
+Specifics
+=========
 # Loop Order
 We arrived at the same conclusion --- that for a naive implementation, an order of `jki` from outermost to innermost loops yielded the best performance. For completeness, it might be useful to include a graph comparing performance for varying loop order, of which there are only six permutations.
 
